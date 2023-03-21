@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('salaries', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('employee_id');
+            $table->decimal('salary', 10,2)->unsigned();
+            $table->timestamps('from_date');
+            $table->timestamps('to_date');
             $table->timestamps();
         });
     }
