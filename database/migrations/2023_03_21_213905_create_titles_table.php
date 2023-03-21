@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('titles', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('employee_id')->constrained()->cascadeOnDelete();
+            $table->string('title', 50);
+            $table->timestamp('from_date');
+            $table->timestamp('to_date');
             $table->timestamps();
         });
     }
