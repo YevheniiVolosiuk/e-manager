@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('employee_id')->constrained()->cascadeOnDelete();
             $table->foreignId('department_id')->constrained()->cascadeOnDelete();
-            $table->timestamp('from_date');
-            $table->timestamp('to_date');
+            $table->timestamp('from_date')->nullable();
+            $table->timestamp('to_date')->nullable();
             $table->timestamps();
 
             $table->index(['employee_id', 'department_id']);
