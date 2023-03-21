@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->timestamp('birth_date')->nullable();
             $table->enum('gender', ['M', 'F'])->nullable();
-            $table->timestamp('hire_date');
+            $table->timestamp('hire_date')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
