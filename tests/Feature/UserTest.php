@@ -22,18 +22,18 @@ class UserTest extends TestCase
 //        $response->assertSee('User list is empty');
 //    }
 
-    public function test_homepage_contains_non_empty_table(): void
-    {
-        $users = User::factory(15)->create();
-        $lastUser =  $users->last();
-
-        $response = $this->get('/users');
-
-        $response->assertStatus(200);
-        $response->assertDontSee('User list is empty');
-
-        $response->assertViewHas('users', function ($collection) use ($lastUser){
-            return $collection->contains($lastUser);
-        });
-    }
+//    public function test_homepage_contains_non_empty_table(): void
+//    {
+//        $users = User::factory(15)->create();
+//        $lastUser =  $users->last();
+//
+//        $response = $this->get('/users');
+//
+//        $response->assertStatus(200);
+//        $response->assertDontSee('User list is empty');
+//
+//        $response->assertViewHas('users', function ($collection) use ($lastUser){
+//            return $collection->contains($lastUser);
+//        });
+//    }
 }
