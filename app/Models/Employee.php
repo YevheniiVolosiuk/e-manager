@@ -17,26 +17,27 @@ class Employee extends Model
         'first_name',
         'last_name',
         'birth_date',
+        'gender',
         'hire_date',
     ];
 
-    public function salary()
+    public function salaries()
     {
-        return $this->belongsTo(Salary::class);
+        return $this->hasMany(Salary::class);
     }
 
-    public function title()
+    public function titles()
     {
-        return $this->belongsTo(Title::class);
+        return $this->hasMany(Title::class);
     }
 
     public function departments()
     {
-        return $this->belongsToMany(Department::class, 'department_employee', 'employee_id', 'id');
+        return $this->belongsToMany(Department::class, 'department_employee', 'department_id', 'id');
     }
 
     public function managers()
     {
-        return $this->belongsToMany(Department::class, 'department_manager', 'employee_id', 'id');
+        return $this->belongsToMany(Department::class, 'department_manager', 'department_id', 'id');
     }
 }
