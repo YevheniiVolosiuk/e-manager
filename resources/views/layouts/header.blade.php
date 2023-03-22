@@ -12,7 +12,7 @@
                               d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
                     </svg>
                 </button>
-                <a href="{{ route('dashboard') }}">
+                <a href="{{ route('dashboard.index') }}">
                     <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200"/>
                 </a>
             </div>
@@ -55,7 +55,7 @@
                         </div>
                         <ul class="py-1" role="none">
                             <li>
-                                <x-dropdown-link :href="route('dashboard')">
+                                <x-dropdown-link :href="route('dashboard.index')">
                                     {{ __('Dashboard') }}
                                 </x-dropdown-link>
                             </li>
