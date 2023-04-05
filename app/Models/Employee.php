@@ -69,4 +69,9 @@ class Employee extends Model
             get: fn($value) => Carbon::parse($value)->format(config('app.date_format')),
         );
     }
+
+    protected function getfullNameAttribute(): string
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
 }

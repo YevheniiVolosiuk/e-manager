@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Employee;
 
-use App\Http\Controllers\Controller;
 use App\Models\Employee;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Enums\EmployeeGenderEnum;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Employee\EmployeeStoreRequest;
 
 class EmployeeController extends Controller
 {
@@ -14,7 +17,8 @@ class EmployeeController extends Controller
     public function index()
     {
         return view('employee.index', [
-           'employees' => Employee::paginate(15),
+            'employees' => Employee::paginate(15),
+            'genders' => EmployeeGenderEnum::cases(),
         ]);
     }
 
@@ -23,15 +27,17 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(EmployeeStoreRequest $request): RedirectResponse
     {
-        //
+//        dd($request->all());
+        $employee = Employee::create($request->validated());
+
+        return redirect()->route('employees.index', $employee)->withSuccess('Employee added successfully !');
     }
 
     /**
