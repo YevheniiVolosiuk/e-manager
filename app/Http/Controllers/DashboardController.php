@@ -7,8 +7,10 @@ use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-         return view('dashboard');
+        return view('dashboard', [
+            'user' => $request->user(),
+        ]);
     }
 }

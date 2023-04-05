@@ -13,6 +13,6 @@ $classes = ($active ?? false)
 @endphp
 
 <a {{ $attributes->merge(['class' => $classes]) }}>
-    {{ $svgIcon }}
+    {{ $svgIcon ?? null }}
     <span class="flex-1 ml-3 whitespace-nowrap">{{ $slot }}</span>
 </a>

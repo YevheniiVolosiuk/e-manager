@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'user_id',
+        'role_id',
         'first_name',
         'last_name',
         'birth_date',
@@ -44,4 +44,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isAdmin()
+    {
+        //        TODO
+    }
+
+    public function isMenager()
+    {
+        //        TODO
+    }
+
+    public function isEmployee()
+    {
+        //        TODO
+    }
+
 }

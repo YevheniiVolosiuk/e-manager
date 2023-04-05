@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Department\DepartmentController;
+use App\Http\Controllers\Employee\EmployeeController;
+use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
