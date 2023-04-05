@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\UserGenderEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,7 +24,7 @@ class EmployeeFactory extends Factory
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
             'birth_date' => fake()->dateTimeBetween('-30 years', '-18 years')->format('Y-m-d'),
-            'gender' => fake()->randomElement(['M', 'F']),
+            'gender' => fake()->randomElement(UserGenderEnum::getAllValue()),
             'hire_date' => $hireDate,
             'created_at' => $hireDate,
             'updated_at' => $hireDate,

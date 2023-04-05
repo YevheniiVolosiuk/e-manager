@@ -19,17 +19,20 @@ class EmployeeSeeder extends Seeder
 
 
         Employee::factory(20)
-            ->has(Title::factory(3)->afterCreating(function (Title $title, $attributes) {
-                $oneYearFromNow = now()->modify('+1 year');
-
-                $employee = $title->employee;
-                $title->from_date = $employee->hire_date;
-                $title->to_date = fake()->dateTimeBetween($employee->hire_date, $oneYearFromNow);
-                $title->save();
-            }))
-            ->has(Salary::factory(3)->afterCreating(function (Salary $salary, $attributes) {
-                $employee = $salary->employee;
-            }))
+            ->hasTitles(3)
+            ->hasSalaries(3)
+//            ->has(Title::factory(3)->afterCreating(function (Title $title, $attributes) {
+//                $oneYearFromNow = now()->modify('+1 year');
+//
+//                $employee = $title->employee;
+//                $title->from_date = $employee->hire_date;
+//                $title->to_date = fake()->dateTimeBetween($employee->hire_date, $oneYearFromNow);
+//                $title->save();
+//            }))
+//            ->has(Salary::factory(3)->afterCreating(function (Salary $salary, $attributes) {
+//                $employee = $salary->employee;
+//            }))
             ->create();
+//            ->each();
     }
 }

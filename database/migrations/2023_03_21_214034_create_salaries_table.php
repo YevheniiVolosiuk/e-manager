@@ -14,10 +14,13 @@ return new class extends Migration
         Schema::create('salaries', function (Blueprint $table) {
             $table->id();
             $table->foreignId('employee_id')->constrained()->cascadeOnDelete();
-            $table->decimal('salary', 10,2)->unsigned();
+
+            $table->decimal('salary', 10)->unsigned();
             $table->timestamp('from_date')->nullable();
             $table->timestamp('to_date')->nullable();
-            $table->timestamps();
+
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
             $table->softDeletes();
         });
     }

@@ -14,9 +14,12 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('employee_id')->constrained()->cascadeOnDelete();
             $table->foreignId('department_id')->constrained()->cascadeOnDelete();
+
             $table->timestamp('from_date')->nullable();
             $table->timestamp('to_date')->nullable();
-            $table->timestamps();
+
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
             $table->index(['employee_id', 'department_id']);
         });
