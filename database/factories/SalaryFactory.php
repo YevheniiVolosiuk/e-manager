@@ -18,8 +18,6 @@ class SalaryFactory extends Factory
     {
         return [
             'salary' => fake()->randomFloat(2, 2500, 5000),
-//            'from_date',
-//            'to_date',
         ];
     }
 }

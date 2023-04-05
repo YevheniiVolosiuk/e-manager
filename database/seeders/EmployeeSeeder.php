@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Salary;
 use App\Models\Title;
@@ -15,24 +16,17 @@ class EmployeeSeeder extends Seeder
      */
     public function run(): void
     {
-
-
-
         Employee::factory(20)
             ->hasTitles(3)
             ->hasSalaries(3)
-//            ->has(Title::factory(3)->afterCreating(function (Title $title, $attributes) {
-//                $oneYearFromNow = now()->modify('+1 year');
-//
-//                $employee = $title->employee;
-//                $title->from_date = $employee->hire_date;
-//                $title->to_date = fake()->dateTimeBetween($employee->hire_date, $oneYearFromNow);
-//                $title->save();
-//            }))
-//            ->has(Salary::factory(3)->afterCreating(function (Salary $salary, $attributes) {
-//                $employee = $salary->employee;
-//            }))
-            ->create();
-//            ->each();
+            ->create()
+            ->each(function (Employee $employee) {
+                $departmentIds = Department::pluck('id')->shuffle()->take(rand(1, 5))->toArray();
+                $employee->departments()->attach($departmentIds, [
+                    'from_date' => fake()->dateTimeBetween('2020-01-01', '2023-01-01'),
+                    'to_date' => fake()->randomElement([fake()->dateTimeBetween('2023-01-01')], null),
+                ]);
+            });
+
     }
 }

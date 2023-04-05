@@ -33,11 +33,11 @@ class Employee extends Model
 
     public function departments()
     {
-        return $this->belongsToMany(Department::class, 'department_employee', 'department_id', 'id');
+        return $this->belongsToMany(Department::class, 'department_employee');
     }
 
     public function managers()
     {
-        return $this->belongsToMany(Department::class, 'department_manager', 'department_id', 'id');
+        return $this->belongsToMany(Department::class, 'department_manager');
     }
 }

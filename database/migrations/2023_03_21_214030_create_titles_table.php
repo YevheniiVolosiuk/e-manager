@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('employee_id')->constrained()->cascadeOnDelete();
-            $table->string('title', 64);
+            $table->string('title', 128);
             $table->timestamp('from_date')->nullable();
             $table->timestamp('to_date')->nullable();
 

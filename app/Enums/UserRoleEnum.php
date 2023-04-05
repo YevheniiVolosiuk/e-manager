@@ -2,12 +2,13 @@
 
 namespace App\Enums;
 
-enum UserRoleEnum :string
+enum UserRoleEnum: string
 {
-    case MAEL = 'M';
-    case FEMALE = 'F';
+    case ADMIN = 'admin';
+    case MANAGER = 'manager';
+    case EMPLOYEE = 'employee';
 
-    public static function getAllValue()
+    public static function getAllValue(): array
     {
         return array_column(UserRoleEnum::cases(), 'value');
     }
