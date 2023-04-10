@@ -18,7 +18,7 @@
 </head>
 <body class="font-sans antialiased">
 <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-    @include('layouts.header')
+    @include('layouts.partials.header')
     <!-- Page Content -->
     <main>
         <div class="p-4 sm:ml-64">
@@ -34,7 +34,7 @@
         </div>
     </main>
 </div>
-@include('layouts.sidebar')
+@include('layouts.partials.sidebar')
 </body>
 </html>
 

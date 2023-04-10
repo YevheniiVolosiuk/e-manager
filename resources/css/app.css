@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer components {
+    .is-invalid {
+        @apply border-red-300 focus:border-blue-500 dark:border-red-600 dark:focus:border-red-500
+    }
+}

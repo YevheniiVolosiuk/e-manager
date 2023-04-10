@@ -53,6 +53,7 @@ class Employee extends Model
     {
         return new Attribute(
             get: fn($value) => Carbon::parse($value)->format(config('app.date_format')),
+            set: fn($value) => Carbon::createFromFormat(config('app.date_format'), $value)->format('Y-m-d'),
         );
     }
 
@@ -60,13 +61,14 @@ class Employee extends Model
     {
         return new Attribute(
             get: fn($value) => Carbon::parse($value)->format(config('app.date_format')),
+            set: fn($value) => Carbon::createFromFormat(config('app.date_format'), $value)->format('Y-m-d'),
         );
     }
 
     protected function createdAt(): Attribute
     {
         return new Attribute(
-            get: fn($value) => Carbon::parse($value)->format(config('app.date_format')),
+            get: fn($value) => Carbon::parse($value)->format('d/m/Y H:i'),
         );
     }
 

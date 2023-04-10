@@ -7,22 +7,14 @@
     <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
         <section class="bg-white dark:bg-gray-900">
             <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
-                {{--                @if ($errors->any())--}}
-                {{--                    <div class="alert alert-danger">--}}
-                {{--                        <ul>--}}
-                {{--                            @foreach ($errors->all() as $error)--}}
-                {{--                                <li>{{ $error }}</li>--}}
-                {{--                            @endforeach--}}
-                {{--                        </ul>--}}
-                {{--                    </div>--}}
-                {{--                @endif--}}
-                <form action="{{ route('employees.store') }}" method="POST">
+                <form action="{{ route('employees.update', $employee->id) }}" method="POST">
                     @csrf
+                    @method('PUT')
                     <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                         <div class="w-full">
                             <label for="first_name"
                                    class=" @error('first_name') text-red-700 dark:text-red-500 @else text-gray-900 dark:text-white @enderror block mb-2 text-sm font-medium ">{{ __('First Name') }} </label>
-                            <input type="text" name="first_name" id="first_name" value="{{ old('first_name') }}"
+                            <input type="text" name="first_name" id="first_name" value="{{ old('first_name') ?? $employee->first_name }}"
                                    class="@error('first_name') is-invalid @else border border-gray-300 focus:border-primary-600 dark:border-gray-600 border @enderror bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus-primary-500 "
                                    placeholder="Adam">
                             @error('first_name')
@@ -33,7 +25,7 @@
                         <div class="w-full">
                             <label for="last_name"
                                    class=" @error('last_name') text-red-700 dark:text-red-500 @else text-gray-900 dark:text-white @enderror block mb-2 text-sm font-medium">{{ __('Last Name') }} </label>
-                            <input type="text" name="last_name" id="last_name" value="{{ old('last_name') }}"
+                            <input type="text" name="last_name" id="last_name" value="{{ old('last_name') ?? $employee->last_name }}"
                                    class="@error('last_name') is-invalid @else border border-gray-300 focus:border-primary-600 dark:border-gray-600 border @enderror bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus-primary-500 "
                                    placeholder="Lones">
                             @error('last_name')
@@ -49,7 +41,7 @@
                                 <option hidden>{{ __('Choose a gender') }}</option>
                                 @foreach($genders as $gender)
                                     <option
-                                        @selected(old('gender') == $gender->value) value="{{ $gender->value }}"> {{ firstUpperNextLower($gender->name) }}
+                                        @selected((old('gender') ?? $employee->gender) == $gender->value) value="{{ $gender->value }}"> {{ firstUpperNextLower($gender->name) }}
                                     </option>
                                 @endforeach
                             </select>
@@ -75,7 +67,7 @@
                                     </div>
                                     <input datepicker id="birthDate" type="text" name="birth_date"
                                            datepicker-format="{{ config('app.datepicker_format') }}"
-                                           value="{{ old('birth_date') }}"
+                                           value="{{ old('birth_date') ?? $employee->birth_date  }}"
                                            class="@error('birth_date') is-invalid @else  border-gray-300 focus:border-blue-500 dark:border-gray-600 dark:focus:border-blue-500  @enderror bg-gray-50 border  text-gray-900 text-sm rounded-lg focus:ring-blue-500  block w-full pl-10 p-2.5 dark:bg-gray-700  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 "
                                            placeholder="01/02/2023">
                                 </div>
@@ -104,7 +96,7 @@
                                     </div>
                                     <input datepicker
                                            datepicker-format="{{ config('app.datepicker_format') }}"
-                                           id="hireDate" type="text" name="hire_date" value="{{ old('hire_date') }}"
+                                           id="hireDate" type="text" name="hire_date" value="{{ old('hire_date') ?? $employee->hire_date }}"
                                            class="@error('hire_date') is-invalid @else  border-gray-300 focus:border-blue-500 dark:border-gray-600 dark:focus:border-blue-500  @enderror bg-gray-50 border  text-gray-900 text-sm rounded-lg focus:ring-blue-500  block w-full pl-10 p-2.5 dark:bg-gray-700  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500  "
                                            placeholder="01/03/2023">
                                 </div>
@@ -118,7 +110,7 @@
                     <div class="flex justify-end items-center">
                         <button type="submit"
                                 class=" mt-4 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center mr-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                            {{ __('Add new') }}
+                            {{ __('Confirm') }}
                         </button>
                         <a href="{{ route('employees.index') }}"
                            class=" mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">

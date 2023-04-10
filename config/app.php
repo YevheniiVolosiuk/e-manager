@@ -80,7 +80,8 @@ return [
 
     'date_format' => 'd/m/Y',
 
-    'date_format_front' => 'd/m/yyyy',
+    'datepicker_format' => 'dd/mm/yyyy',
+
 
     /*
     |--------------------------------------------------------------------------

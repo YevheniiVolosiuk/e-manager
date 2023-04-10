@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Employee;
 
+use App\Http\Requests\Employee\EmployeeUpdateRequest;
 use App\Models\Employee;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use App\Enums\EmployeeGenderEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Employee\EmployeeStoreRequest;
@@ -17,8 +17,7 @@ class EmployeeController extends Controller
     public function index()
     {
         return view('employee.index', [
-            'employees' => Employee::paginate(15),
-            'genders' => EmployeeGenderEnum::cases(),
+            'employees' => Employee::paginate(10),
         ]);
     }
 
@@ -27,6 +26,9 @@ class EmployeeController extends Controller
      */
     public function create()
     {
+        return view('employee.create', [
+            'genders' => EmployeeGenderEnum::cases(),
+        ]);
     }
 
     /**
@@ -34,10 +36,11 @@ class EmployeeController extends Controller
      */
     public function store(EmployeeStoreRequest $request): RedirectResponse
     {
-//        dd($request->all());
-        $employee = Employee::create($request->validated());
+        Employee::create($request->validated());
 
-        return redirect()->route('employees.index', $employee)->withSuccess('Employee added successfully !');
+        return redirect()
+            ->route('employees.index')
+            ->withSuccess('Employee added successfully !');
     }
 
     /**
@@ -45,7 +48,10 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        //
+        return view('employee.show', [
+            'employee' => $employee,
+            'genders' => EmployeeGenderEnum::cases(),
+        ]);
     }
 
     /**
@@ -53,15 +59,22 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        //
+        return view('employee.edit', [
+            'employee' => $employee,
+            'genders' => EmployeeGenderEnum::cases(),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Employee $employee)
+    public function update(EmployeeUpdateRequest $request, Employee $employee)
     {
-        //
+        $employee->update($request->validated());
+
+        return redirect()
+            ->route('employees.index')
+            ->withSuccess("Employee \"{$employee->fullName}\" updated successfully !");
     }
 
     /**
@@ -69,6 +82,10 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        //
+        $employee->delete();
+
+        return redirect()
+            ->route('employees.index')
+            ->withSuccess("Employee \"{$employee->fullName}\" deleted successfully !");
     }
 }
