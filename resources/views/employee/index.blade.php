@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="pageHeading">
         <h2 class="lg:px-8 font-bold text-2xl lg:text-3xl text-gray-700 dark:text-white">
-{{--            {{ __('Employee') }}--}}
+            {{--            {{ __('Employee') }}--}}
         </h2>
     </x-slot>
     @if(session('success'))
@@ -16,7 +16,7 @@
                           clip-rule="evenodd"></path>
                 </svg>
                 <div class="ml-3 text-sm font-medium">
-                      {{ session('success') }}
+                    {{ session('success') }}
                 </div>
                 <button type="button"
                         class="ml-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700"
@@ -102,19 +102,22 @@
             </div>
             <div class="flex gap-3 space-x-6 items-center flex-wrap justify-between">
                 <label for="table-search" class="sr-only">Search</label>
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor"
-                             viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                  clip-rule="evenodd"></path>
-                        </svg>
+                <form action="{{ route('employees.index')  }}" method="GET">
+                    @csrf
+                    <div class="relative">
+                        <button type="submit" class="absolute inset-y-0 left-0 flex items-center pl-3 cursor-pointer">
+                            <svg class="hover:scale-110 transition ease-out duration-300 w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor"
+                                 viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                      clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                        <input type="text" id="table-search" name="search" value="{{ old('search') }}"
+                               class=" w-80 block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               placeholder="{{ __('Search for items') }}">
                     </div>
-                    <input type="text" id="table-search"
-                           class=" w-80 block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                           placeholder="{{ __('Search for items') }}">
-                </div>
+                </form>
                 <div class="inline-flex items-center gap-x-1">
                     <a href="{{ route('employees.create') }}"
                        class=" text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center mr-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
@@ -172,7 +175,8 @@
                 </thead>
                 <tbody>
                 @foreach($employees as $employee)
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer" onclick="window.location='{{ route('employees.show', $employee->id) }}'">
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer"
+                        onclick="window.location='{{ route('employees.show', $employee->id) }}'">
                         <td class="w-4 p-4">
                             <div class="flex items-center">
                                 <input id="checkbox-table-search-{{ $employee->id }}" type="checkbox"
@@ -195,7 +199,7 @@
                         </td>
                         <td class="flex items-center px-6 py-3 space-x-3">
                             <a href="{{ route('employees.edit', $employee->id) }}"
-                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                               class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-[1.15rem] w-[1.15rem] mr-1"
                                      viewBox="0 0 20 20" fill="currentColor">
                                     <path

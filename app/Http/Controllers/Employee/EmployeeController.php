@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Enums\EmployeeGenderEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Employee\EmployeeStoreRequest;
+use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
@@ -16,8 +17,18 @@ class EmployeeController extends Controller
      */
     public function index()
     {
+//        dd($request);
+        $employees = Employee::query()
+            ->when(request('search'), function ($query) {
+                $query->searchByFirstName()
+                    ->orWhere(function ($query) {
+                        $query->searchByLastName();
+                    });
+            })
+            ->paginate(10);
+
         return view('employee.index', [
-            'employees' => Employee::paginate(10),
+            'employees' => $employees,
         ]);
     }
 
@@ -88,4 +99,5 @@ class EmployeeController extends Controller
             ->route('employees.index')
             ->withSuccess("Employee \"{$employee->fullName}\" deleted successfully !");
     }
+
 }

@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request;
 
 class Employee extends Model
 {
@@ -75,5 +77,15 @@ class Employee extends Model
     protected function getfullNameAttribute(): string
     {
         return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function scopeSearchByFirstName(Builder $query): void
+    {
+        $query->where('first_name', 'LIKE', '%' . request('search'). '%');
+    }
+
+    public function scopeSearchByLastName(Builder $query): void
+    {
+        $query->where('last_name', 'LIKE', '%' . request('search'). '%');
     }
 }
