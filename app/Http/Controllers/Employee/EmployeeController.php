@@ -17,14 +17,17 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-//        dd($request);
-        $employees = Employee::query()
-            ->when(request('search'), function ($query) {
-                $query->searchByFirstName()
-                    ->orWhere(function ($query) {
-                        $query->searchByLastName();
-                    });
-            })
+//        $employees = Employee::query()
+//            ->when(request('search'), function ($query) {
+//                $query->searchByFirstName()
+//                    ->orWhere(function ($query) {
+//                        $query->searchByLastName();
+//                    });
+//            })
+//            ->paginate(10);
+
+
+        $employees = Employee::search(request('search'))
             ->paginate(10);
 
         return view('employee.index', [

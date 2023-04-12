@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Http\Request;
+use Laravel\Scout\Searchable;
 
 class Employee extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use Searchable;
 
     protected $table = 'employees';
 
@@ -30,6 +31,14 @@ class Employee extends Model
         'gender',
         'hire_date',
     ];
+
+    public function toSearchableArray()
+    {
+        return [
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+        ];
+    }
 
     public function salaries()
     {
@@ -79,13 +88,13 @@ class Employee extends Model
         return $this->first_name . ' ' . $this->last_name;
     }
 
-    public function scopeSearchByFirstName(Builder $query): void
-    {
-        $query->where('first_name', 'LIKE', '%' . request('search'). '%');
-    }
-
-    public function scopeSearchByLastName(Builder $query): void
-    {
-        $query->where('last_name', 'LIKE', '%' . request('search'). '%');
-    }
+//    public function scopeSearchByFirstName(Builder $query): void
+//    {
+//        $query->where('first_name', 'LIKE', '%' . request('search'). '%');
+//    }
+//
+//    public function scopeSearchByLastName(Builder $query): void
+//    {
+//        $query->where('last_name', 'LIKE', '%' . request('search'). '%');
+//    }
 }
